@@ -1,27 +1,79 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
-
-from otree.common import Currency as c, currency_range, safe_json
-
 from . import models
 from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class MyPage(Page):
-    pass
+def vars_for_all_templates(self):
+    return {'instructions': 'dictator/Instructions.html', 'constants': Constants}
+
+
+class Introduction(Page):
+
+    template_name = 'global/Introduction.html'
+
+
+class Question1(Page):
+    template_name = 'global/Question.html'
+    form_model = models.Player
+    form_fields = ['training_participant1_payoff', 'training_participant2_payoff']
+	question = ('Suppose that both participants start with $1.00, then participant 1 sent $0.20 to participant 2. '
+    'Having received the tripled amount, how much would participants 1 and 2 have?')
+
+    def is_displayed(self):
+        return self.subsession.round_number == 1
+
+    def vars_for_template(self):
+        return {'num_q': 1, 'question': self.question}
+
+
+class Feedback1(Page):
+    template_name = 'dictator/Feedback.html'
+
+    def is_displayed(self):
+        return self.subsession.round_number == 1
+
+    def vars_for_template(self):
+        p = self.player
+        return {'answers': {
+                'participant 1': [p.training_participant1_payoff, $0.80],
+                'participant 2': [p.training_participant2_payoff, $1.60]}}
+
+
+class Offer(Page):
+
+    form_model = models.Group
+    form_fields = ['sent']
+
+    def is_displayed(self):
+        return self.player.id_in_group == 1
+
 
 class ResultsWaitPage(WaitPage):
 
     def after_all_players_arrive(self):
-        pass
+        self.group.set_payoffs()
+
+    def body_text(self):
+        if self.player.id_in_group == 2:
+            return "You are participant 2. \
+                Waiting for participant 1 to decide."
+        return 'Please wait'
+
 
 class Results(Page):
-    pass
+
+    def offer(self):
+        return 3*self.group.sent
+
+    def vars_for_template(self):
+        return {'offer': self.offer}
 
 
-page_sequence = [
-    MyPage,
-    ResultsWaitPage,
-    Results
-]
+page_sequence = [Introduction,
+            Question1,
+            Feedback1,
+            Offer,
+            ResultsWaitPage,
+            Results]

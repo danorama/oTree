@@ -2,21 +2,25 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Page title
+Results
 {% endblock %}
 
 {% block content %}
+<p>
 
-<!--
-Documentation on how to write a django template here:
-https://docs.djangoproject.com/en/dev/topics/templates/
+{% if player.id_in_group == 2 %}
 
-Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
-http://getbootstrap.com/components/
+You decided to send <strong>{{group.sent}}</strong>.<br>In addition, you receive your initial amount of {{group.allocated_amount_p2}} and {{Constants.bonus}} for participation. Thus, your total payoff is <strong>{{player.payoff}}</strong>.
 
--->
+{% else %}
 
-    {% next_button %}
+Participant 2 decided to send <strong>{{group.sent}}</strong>, so you received <strong>{{offer}}</strong>.<br>In addition, you receive your initial amount of {{group.allocated_amount_p1}} and {{Constants.bonus}} for participation. Thus, your total payoff is <strong>{{player.payoff}}</strong>.
+
+{% endif %}
+
+</p>
+<p>
+{% next_button %}
+</p>
+{% include instructions %}
 {% endblock %}
-
-

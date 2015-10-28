@@ -1,10 +1,8 @@
-# This file is auto-generated. Don't change anything in this file.
-
+# Don't change anything in this file.
+from .. import models
 import otree.views
 import otree.test
-
-from .. import models
-
+from otree.common import Currency as c, currency_range
 
 class Page(otree.views.Page):
     z_models = models
@@ -13,6 +11,7 @@ class Page(otree.views.Page):
         self.subsession = models.Subsession()
         self.group = models.Group()
         self.player = models.Player()
+
 
 
 class WaitPage(otree.views.WaitPage):

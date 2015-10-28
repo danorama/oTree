@@ -1,52 +1,87 @@
 # -*- coding: utf-8 -*-
 # <standard imports>
 from __future__ import division
-
-import random
-
-import otree.models
 from otree.db import models
+import otree.models
+import otree.constants
 from otree import widgets
-from otree.common import Currency as c, currency_range, safe_json
-from otree.constants import BaseConstants
-from otree.models import BaseSubsession, BaseGroup, BasePlayer
+from otree.common import Currency as c, currency_range
+import random
 # </standard imports>
 
-author = 'Your name here'
 
 doc = """
-Your app description
+This is a standard 2-player trust game where the amount sent by player 1 gets
+tripled. The trust game was first proposed by
+<a href="http://econweb.ucsd.edu/~jandreon/Econ264/papers/Berg%20et%20al%20GEB%201995.pdf" target="_blank">
+    Berg, Dickhaut, and McCabe (1995)
+</a>.
 """
 
 
-class Constants(BaseConstants):
+source_code = "https://github.com/oTree-org/oTree/tree/master/trust"
+
+
+bibliography = ()
+
+
+links = {}
+
+
+keywords = ("Trust Game",)
+
+
+class Constants(otree.constants.BaseConstants):
     name_in_url = 'trust_a'
-    players_per_group = None
+    players_per_group = 2
     num_rounds = 1
 
-    # define more constants here
+    #Initial amount allocated to each player
+    amount_allocated = c(1.00)
+    multiplication_factor = 3
+    bonus = c(0.50)
 
+    training_answer_x_correct = c(130)
+    training_answer_y_correct = c(110)
 
-class Subsession(BaseSubsession):
+class Subsession(otree.models.BaseSubsession):
+
     pass
 
 
-class Group(BaseGroup):
+
+class Group(otree.models.BaseGroup):
+
+
     # <built-in>
     subsession = models.ForeignKey(Subsession)
     # </built-in>
 
+    sent_amount = models.CurrencyField(
+        min=0, max=Constants.amount_allocated,
+        doc="""Amount sent by P1""",
+    )
 
-class Player(BasePlayer):
+    sent_back_amount = models.CurrencyField(
+        doc="""Amount sent back by P2""",
+        min=c(0),
+    )
+
+    def set_payoffs(self):
+        p1 = self.get_player_by_id(1)
+        p2 = self.get_player_by_id(2)
+        p1.payoff = Constants.bonus + Constants.amount_allocated - self.sent_amount + self.sent_back_amount
+        p2.payoff = Constants.bonus + Constants.amount_allocated + self.sent_amount * Constants.multiplication_factor - self.sent_back_amount
+
+
+class Player(otree.models.BasePlayer):
+
     # <built-in>
+    group = models.ForeignKey(Group, null=True)
     subsession = models.ForeignKey(Subsession)
-    group = models.ForeignKey(Group, null = True)
     # </built-in>
-
-    def get_partner(self):
-        """Returns other player in group. Only valid for 2-player groups."""
-        return self.get_others_in_group()[0]
+    training_answer_x = models.CurrencyField(verbose_name='Participant A would have')
+    training_answer_y = models.CurrencyField(verbose_name='Participant B would have')
 
     def role(self):
-        # you can make this depend of self.id_in_group
-        return ''
+        return {1: 'A', 2: 'B'}[self.id_in_group]

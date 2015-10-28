@@ -2,21 +2,30 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Page title
+    Results
 {% endblock %}
 
 {% block content %}
+<p>
+{% if player.role == 'A' %}
+You chose to send participant B <strong>{{group.sent_amount}}</strong>. Participant B returned <strong>{{group.sent_back_amount}}</strong>.
+</p>
+<p>
+You were initially endowed with <strong>{{Constants.amount_allocated}}</strong>, chose to send <strong>{{group.sent_amount}}</strong>, received <strong>{{group.sent_back_amount}}</strong> thus you now have <strong>{{Constants.amount_allocated}}-{{group.sent_amount}}+{{group.sent_back_amount}}={{result}}</strong>.
+{% else %}
+Participant A sent you <strong>{{group.sent_amount}}</strong>. They were tripled so you received <strong>{{tripled_amount}}</strong>. You chose to return <strong>{{group.sent_back_amount}}</strong>.
+</p>
+<p>
+You were initially endowed with <strong>{{Constants.amount_allocated}}</strong>, received <strong>{{tripled_amount}}</strong>, chose to return <strong>{{group.sent_back_amount}}</strong> thus you now have <strong>{{Constants.amount_allocated}}-{{tripled_amount}}-{{group.sent_back_amount}}={{result}}</strong>.
+{% endif %}
+</p>
+<p>
+In addition, you received {{Constants.bonus}} for participation. Therefore, your total payoff is <strong>{{player.payoff}}</strong>.
+</p>
 
-<!--
-Documentation on how to write a django template here:
-https://docs.djangoproject.com/en/dev/topics/templates/
+<p>{% next_button %}</p>
 
-Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
-http://getbootstrap.com/components/
+    {% include instructions %}
 
--->
-
-    {% next_button %}
 {% endblock %}
-
 

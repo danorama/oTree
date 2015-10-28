@@ -56,7 +56,7 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 # e.g. EUR, CAD, GBP, CHF, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
-USE_POINTS = True
+USE_POINTS = False
 
 
 # e.g. en-gb, de-de, it-it, fr-fr.
@@ -118,7 +118,7 @@ mturk_hit_settings = {
 
 SESSION_CONFIG_DEFAULTS = {
     'real_world_currency_per_point': 0.01,
-    'participation_fee': 10.00,
+    'participation_fee': 0.50,
     'num_bots': 12,
     'doc': "",
     'group_by_arrival_time': False,
@@ -149,6 +149,30 @@ SESSION_CONFIGS = [
         'display_name': "Trust Game (simple version from tutorial)",
         'num_demo_participants': 2,
         'app_sequence': ['trust_simple'],
+    },
+    {
+        'name': 'trust_1a',
+        'display_name': "Trust Game 1A",
+        'num_demo_participants': 2,
+        'app_sequence': ['trust_a', 'payment_info'],
+    },
+	{
+        'name': 'trust_1b',
+        'display_name': "Trust Game 1B",
+        'num_demo_participants': 2,
+        'app_sequence': ['trust_b', 'payment_info'],
+    },
+	{
+        'name': 'trust_1c',
+        'display_name': "Trust Game 1C",
+        'num_demo_participants': 2,
+        'app_sequence': ['trust_c', 'payment_info'],
+    },
+	{
+        'name': 'trust_2',
+        'display_name': "Trust Game 2ABC",
+        'num_demo_participants': 2,
+        'app_sequence': ['trust_a', 'trust_b', 'trust_c', 'payment_info'],
     },
     {
         'name': 'beauty',
