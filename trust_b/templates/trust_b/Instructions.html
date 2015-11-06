@@ -2,9 +2,55 @@
 
 {% block instructions %}
 <p>
-You will be paired randomly and anonymously with another participant. In this study, one of you will be Participant 1 and the other Participant 2. Prior to making a decision, you will learn your role, which will be randomly assigned. 
+You have been randomly and anonymously paired with another participant. 
+One of you will be selected at random to be Participant 1; the other will be Participant 2. 
+You will learn whether you are Participant 1 or 2 prior to making any decision.
 </p>
 <p>
-Each participant starts with {{Constants.allocated_amount}}. Participant 1 will then decide how much to send to Participant 2. Before Participant 2 receives it, the amount sent will be tripled by the experimenter.
+To start, Participants 1 and 2 each receive {{Constants.allocated_amount}}. Participant 1 can send some or all of their
+{{Constants.allocated_amount}} to Participant 2. Before Participant 2 receives this, it will be tripled by the experimenter.
+The following table shows how this works.<br>
+<center>
+<table border="1">
+  <tr>
+    <th>If Participant 1 sends</th>
+    <th>The experimenter will triple it</th> 
+    <th>Participant 2 would receive</th>
+  </tr>
+  <tr>
+    <td align="center">$0.00</td>
+    <td align="center">3*$0.00</td> 
+    <td align="center">$0.00</td>
+  </tr>
+    <tr>
+    <td align="center">$0.20</td>
+    <td align="center">3*$0.20</td> 
+    <td align="center">$0.60</td>
+  </tr>
+    <tr>
+    <td align="center">$0.40</td>
+    <td align="center">3*$0.40</td> 
+    <td align="center">$1.20</td>
+  </tr>
+    <tr>
+    <td align="center">$0.60</td>
+    <td align="center">3*$0.60</td> 
+    <td align="center">$1.80</td>
+  </tr>
+  </tr>
+    <tr>
+    <td align="center">$0.80</td>
+    <td align="center">3*$0.80</td> 
+    <td align="center">$2.40</td>
+  </tr>
+  </tr>
+    <tr>
+    <td align="center">$1.00</td>
+    <td align="center">3*$1.00</td> 
+    <td align="center">$3.00</td>
+  </tr>
+</table></center><br>
+Participant 2 has no decision to make.  <u>This means that he will keep all of the tripled amount sent to him by Participant 1</u>.
 </p>
+
 {% endblock %}

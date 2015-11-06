@@ -6,20 +6,23 @@ from .models import Constants
 
 
 def vars_for_all_templates(self):
-    return {'instructions': 'dictator/Instructions.html', 'constants': Constants}
+    return {'instructions': 'trust_b/Instructions.html', 'constants': Constants}
 
 
 class Introduction(Page):
 
     template_name = 'global/Introduction.html'
 
+    def vars_for_template(self):
+        return {'amount_allocated': Constants.allocated_amount}
+
 
 class Question1(Page):
     template_name = 'global/Question.html'
     form_model = models.Player
     form_fields = ['training_participant1_payoff', 'training_participant2_payoff']
-	question = ('Suppose that both participants start with $1.00, then participant 1 sent $0.20 to participant 2. '
-    'Having received the tripled amount, how much would participants 1 and 2 have?')
+    question = ('Suppose that both participants start with $1.00, then participant 1 sends $0.20 to participant 2. '
+    'How much would participants 1 and 2 have?')
 
     def is_displayed(self):
         return self.subsession.round_number == 1
@@ -29,7 +32,7 @@ class Question1(Page):
 
 
 class Feedback1(Page):
-    template_name = 'dictator/Feedback.html'
+    template_name = 'trust_b/Feedback.html'
 
     def is_displayed(self):
         return self.subsession.round_number == 1
@@ -37,8 +40,8 @@ class Feedback1(Page):
     def vars_for_template(self):
         p = self.player
         return {'answers': {
-                'participant 1': [p.training_participant1_payoff, $0.80],
-                'participant 2': [p.training_participant2_payoff, $1.60]}}
+                'participant 1': [p.training_participant1_payoff, 0.80],
+                'participant 2': [p.training_participant2_payoff, 1.60]}}
 
 
 class Offer(Page):
@@ -65,7 +68,7 @@ class ResultsWaitPage(WaitPage):
 class Results(Page):
 
     def offer(self):
-        return 3*self.group.sent
+        return self.group.sent
 
     def vars_for_template(self):
         return {'offer': self.offer}

@@ -8,7 +8,6 @@ from otree import widgets
 from otree.common import Currency as c, currency_range
 # </standard imports>
 
-import random
 
 doc = """
 One player decides how to divide a certain amount between himself and the other
@@ -43,18 +42,13 @@ keywords = ("Dictator Game", "Fairness", "Homo Economicus")
 
 
 class Constants(otree.constants.BaseConstants):
-    name_in_url = 'trust_c'
+    name_in_url = 'trust_e'
     players_per_group = 2
     num_rounds = 1
 
-    bonus = c(0.50)
+    bonus = c(0.00)
     # Initial amount allocated to each player
     allocated_amount = c(1.00)
-
-    sent_history = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00]
-    fraction = random.choice(sent_history)
-    allocated_p1 = c(allocated_amount - fraction * allocated_amount)
-    allocated_p2 = c(allocated_amount + 3 * fraction * allocated_amount)
 
 
 class Subsession(otree.models.BaseSubsession):
@@ -70,15 +64,15 @@ class Group(otree.models.BaseGroup):
 
     sent = models.CurrencyField(
         doc="""Amount dictator decided to send""",
-        min=0, max=Constants.allocated_p2,
-        verbose_name='I will send (from 0 to $%i)' % Constants.allocated_p2
+        min=0, max=Constants.allocated_amount,
+        verbose_name='I will send (from 0 to $%i)' % Constants.allocated_amount
     )
 
     def set_payoffs(self):
         p1 = self.get_player_by_id(1)
         p2 = self.get_player_by_id(2)
-        p1.payoff = Constants.bonus + Constants.allocated_p1 + self.sent
-        p2.payoff = Constants.bonus + Constants.allocated_p2 - self.sent
+        p1.payoff = Constants.bonus + Constants.allocated_amount - self.sent
+        p2.payoff = Constants.bonus + Constants.allocated_amount + 3*self.sent
 
 
 class Player(otree.models.BasePlayer):

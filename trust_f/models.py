@@ -43,7 +43,7 @@ keywords = ("Dictator Game", "Fairness", "Homo Economicus")
 
 
 class Constants(otree.constants.BaseConstants):
-    name_in_url = 'trust_c'
+    name_in_url = 'trust_f'
     players_per_group = 2
     num_rounds = 1
 
@@ -71,7 +71,7 @@ class Group(otree.models.BaseGroup):
     sent = models.CurrencyField(
         doc="""Amount dictator decided to send""",
         min=0, max=Constants.allocated_p2,
-        verbose_name='I will send (from 0 to $%i)' % Constants.allocated_p2
+        verbose_name='I will send'
     )
 
     def set_payoffs(self):

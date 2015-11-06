@@ -65,7 +65,7 @@ class Group(otree.models.BaseGroup):
     sent = models.CurrencyField(
         doc="""Amount dictator decided to send""",
         min=0, max=Constants.allocated_amount,
-        verbose_name='I will send (from 0 to %i)' % Constants.allocated_amount
+        verbose_name='I will send (from 0 to $%i)' % Constants.allocated_amount
     )
 
     def set_payoffs(self):

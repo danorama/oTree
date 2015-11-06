@@ -1,0 +1,28 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Session Instructions
+{% endblock %}
+
+{% block content %}
+
+You will be asked to make decisions in three short experiments.  instructions for each experiment will be given to you before it begins.
+
+<p>
+You have been randomly and anonymously paired with another participant. One of you will be selected at random to be participant 1;
+    the other will be participant 2. You will learn whether you are participant 1 or 2 prior to making any decision.
+</p>
+
+<p>
+If you are randomly chosen to be participant 1, you will be participant 1 in all three experiments.
+    If you are randomly chosen to be participant 2, you will be participant 2 in all three experiments.
+    You will be paired with the same person for all three experiments.
+</p>
+
+
+Please click "Next" to proceed.
+
+    {% next_button %}
+
+{% endblock %}

@@ -13,10 +13,10 @@ You chose to send participant B <strong>{{group.sent_amount}}</strong>. Particip
 <p>
 You were initially endowed with <strong>{{Constants.amount_allocated}}</strong>, chose to send <strong>{{group.sent_amount}}</strong>, received <strong>{{group.sent_back_amount}}</strong> thus you now have <strong>{{Constants.amount_allocated}}-{{group.sent_amount}}+{{group.sent_back_amount}}={{result}}</strong>.
 {% else %}
-Participant A sent you <strong>{{group.sent_amount}}</strong>. They were tripled so you received <strong>{{tripled_amount}}</strong>. You chose to return <strong>{{group.sent_back_amount}}</strong>.
+Participant A sent you <strong>{{group.sent_amount}}</strong>. It was tripled so you received <strong>{{tripled_amount}}</strong>. You chose to return <strong>{{group.sent_back_amount}}</strong>.
 </p>
 <p>
-You were initially endowed with <strong>{{Constants.amount_allocated}}</strong>, received <strong>{{tripled_amount}}</strong>, chose to return <strong>{{group.sent_back_amount}}</strong> thus you now have <strong>{{Constants.amount_allocated}}-{{tripled_amount}}-{{group.sent_back_amount}}={{result}}</strong>.
+You were initially endowed with <strong>{{Constants.amount_allocated}}</strong>, received <strong>{{tripled_amount}}</strong>, chose to return <strong>{{group.sent_back_amount}}</strong> thus you now have <strong>{{Constants.amount_allocated}}+{{tripled_amount}}-{{group.sent_back_amount}}={{result}}</strong>.
 {% endif %}
 </p>
 <p>

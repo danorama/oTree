@@ -32,14 +32,14 @@ keywords = ("Trust Game",)
 
 
 class Constants(otree.constants.BaseConstants):
-    name_in_url = 'trust_a'
+    name_in_url = 'trust_d'
     players_per_group = 2
     num_rounds = 1
 
     #Initial amount allocated to each player
     amount_allocated = c(1.00)
     multiplication_factor = 3
-    bonus = c(0.50)
+    bonus = c(0.00)
 
     training_answer_x_correct = c(1.30)
     training_answer_y_correct = c(1.10)

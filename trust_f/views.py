@@ -6,7 +6,7 @@ from .models import Constants
 
 
 def vars_for_all_templates(self):
-    return {'instructions': 'trust_c/Instructions.html', 'constants': Constants}
+    return {'instructions': 'trust_f/Instructions.html', 'constants': Constants}
 
 
 class Introduction(Page):
@@ -30,7 +30,7 @@ class Question1(Page):
 
 
 class Feedback1(Page):
-    template_name = 'trust_c/Feedback.html'
+    template_name = 'trust_f/Feedback.html'
 
     def is_displayed(self):
         return self.subsession.round_number == 1

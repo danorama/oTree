@@ -1,18 +1,13 @@
 {% extends "global/Instructions.html" %}
 
 {% block instructions %}
-<p>
-You have been randomly and anonymously paired with another participant. 
-One of you will be selected at random to be Participant 1; the other will be Participant 2. 
-You will learn whether you are Participant 1 or 2 prior to making any decision.
-</p>
-<p>
-To start, Participants 1 and 2 each receive {{Constants.amount_allocated}}. Participant 1 can send some or all of their 
-{{Constants.amount_allocated}} to Participant 2. Before Participant 2 receives this, it will be tripled by the experimenter. 
-The following table shows how this works.<br>
 
+<p>
+To start, Participants 1 and 2 each receive {{Constants.allocated_amount}}. Participant 1 can send some or all of their
+{{Constants.allocated_amount}} to Participant 2. Before Participant 2 receives this, it will be tripled by the experimenter.
+The following table shows how this works.<br>
 <center>
-  <table border="1">
+<table border="1">
   <tr>
     <th>If Participant 1 sends</th>
     <th>The experimenter will triple it</th> 
@@ -50,10 +45,8 @@ The following table shows how this works.<br>
     <td align="center">3*$1.00</td> 
     <td align="center">$3.00</td>
   </tr>
-</table>
-  </center>
-
-<br>Once Participant 2 receives the tripled amount, he can decide whether to return some, all, or none of the tripled amount 
-<u>to the same person</u> who gave it to them. The amount sent back to Participant 1 is not tripled again.
+</table></center><br>
+Participant 2 has no decision to make.  <u>This means that he will keep all of the tripled amount sent to him by Participant 1</u>.
 </p>
+
 {% endblock %}

@@ -9,7 +9,7 @@ from .models import Constants
 
 
 def vars_for_all_templates(self):
-    return {'instructions': 'trust_a/Instructions.html', 'total_q': 1}
+    return {'instructions': 'trust_d/Instructions.html', 'total_q': 1}
 
 
 class Introduction(Page):

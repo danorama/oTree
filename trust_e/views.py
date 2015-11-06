@@ -6,7 +6,7 @@ from .models import Constants
 
 
 def vars_for_all_templates(self):
-    return {'instructions': 'trust_c/Instructions.html', 'constants': Constants}
+    return {'instructions': 'trust_e/Instructions.html', 'constants': Constants}
 
 
 class Introduction(Page):
@@ -18,9 +18,8 @@ class Question1(Page):
     template_name = 'global/Question.html'
     form_model = models.Player
     form_fields = ['training_participant1_payoff', 'training_participant2_payoff']
-    question = ('Suppose that Participant 1 starts with $0.50 and Participant 2 starts with $0.75, '
-                'then Participant 2 decided to send $0.10 to Participant 1.'
-                'What would be the payoffs for Participant 1 and 2 respectively?')
+    question = ('Suppose that both participants start with $1.00, then participant 1 sends $0.20 to participant 2. '
+    'How much would participants 1 and 2 have?')
 
     def is_displayed(self):
         return self.subsession.round_number == 1
@@ -30,7 +29,7 @@ class Question1(Page):
 
 
 class Feedback1(Page):
-    template_name = 'trust_c/Feedback.html'
+    template_name = 'trust_e/Feedback.html'
 
     def is_displayed(self):
         return self.subsession.round_number == 1
@@ -38,8 +37,8 @@ class Feedback1(Page):
     def vars_for_template(self):
         p = self.player
         return {'answers': {
-                'participant 1': [p.training_participant1_payoff, 0.60],
-                'participant 2': [p.training_participant2_payoff, 0.65]}}
+                'participant 1': [p.training_participant1_payoff, 0.80],
+                'participant 2': [p.training_participant2_payoff, 1.60]}}
 
 
 class Offer(Page):
@@ -48,7 +47,7 @@ class Offer(Page):
     form_fields = ['sent']
 
     def is_displayed(self):
-        return self.player.id_in_group == 2
+        return self.player.id_in_group == 1
 
 
 class ResultsWaitPage(WaitPage):
@@ -57,9 +56,9 @@ class ResultsWaitPage(WaitPage):
         self.group.set_payoffs()
 
     def body_text(self):
-        if self.player.id_in_group == 1:
-            return "You are participant 1. \
-                Waiting for participant 2 to decide."
+        if self.player.id_in_group == 2:
+            return "You are participant 2. \
+                Waiting for participant 1 to decide."
         return 'Please wait'
 
 

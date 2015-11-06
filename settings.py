@@ -151,28 +151,46 @@ SESSION_CONFIGS = [
         'app_sequence': ['trust_simple'],
     },
     {
-        'name': 'trust_1a',
-        'display_name': "Trust Game 1A",
+        'name': 'trust_a',
+        'display_name': "Trust Game A",
         'num_demo_participants': 2,
-        'app_sequence': ['trust_a', 'payment_info'],
+        'app_sequence': ['trust_a'],
     },
-	{
-        'name': 'trust_1b',
-        'display_name': "Trust Game 1B",
+    {
+        'name': 'trust_b',
+        'display_name': "Trust Game B",
         'num_demo_participants': 2,
-        'app_sequence': ['trust_b', 'payment_info'],
+        'app_sequence': ['trust_b'],
     },
-	{
-        'name': 'trust_1c',
-        'display_name': "Trust Game 1C",
+    {
+        'name': 'trust_c',
+        'display_name': "Trust Game C",
         'num_demo_participants': 2,
-        'app_sequence': ['trust_c', 'payment_info'],
+        'app_sequence': ['trust_c'],
     },
-	{
-        'name': 'trust_2',
-        'display_name': "Trust Game 2ABC",
+    {
+        'name': 'trust_d',
+        'display_name': "Trust Game D",
         'num_demo_participants': 2,
-        'app_sequence': ['trust_a', 'trust_b', 'trust_c', 'payment_info'],
+        'app_sequence': ['trust_d'],
+    },
+    {
+        'name': 'trust_e',
+        'display_name': "Trust Game E",
+        'num_demo_participants': 2,
+        'app_sequence': ['trust_e'],
+    },
+    {
+        'name': 'trust_f',
+        'display_name': "Trust Game F",
+        'num_demo_participants': 2,
+        'app_sequence': ['trust_f'],
+    },
+    {
+        'name': 'trust_def',
+        'display_name': "Trust Game DEF",
+        'num_demo_participants': 2,
+        'app_sequence': ['trust_session_instructions', 'trust_d', 'trust_e', 'trust_f'],
     },
     {
         'name': 'beauty',
