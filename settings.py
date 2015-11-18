@@ -5,12 +5,23 @@ from boto.mturk import qualification
 
 import otree.settings
 
+# using below to actually parse our config files
+import ConfigParser
+
+config = ConfigParser.RawConfigParser()
+config.read('otree_config.properties')
+
+
+# to get the right name from the forward and fix the link problem
+USE_X_FORWARDED_HOST = True
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # OTREE_PRODUCTION just controls whether Django runs in
 # DEBUG mode. If OTREE_PRODUCTION==1, then DEBUG=False
-if os.environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
+# os.environ.get('OTREE_PRODUCTION')
+if config.get('oTreeSettings', 'otree.production') not in {None, '', '0'}:
     DEBUG = False
 else:
     DEBUG = True
@@ -24,10 +35,21 @@ SECRET_KEY = 'zzzzzzzzzzzzzzzzzzzzzzzzzzz'
 
 PAGE_FOOTER = ''
 
+#DATABASES = {
+#    'default': dj_database_url.config(
+#        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+#    )
+#}
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config.get('DatabaseSettings', 'database.name'),
+        'USER': config.get('DatabaseSettings', 'database.user'),
+        'PASSWORD': config.get('DatabaseSettings', 'database.password'),
+        'HOST': config.get('DatabaseSettings', 'database.host'),   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
 }
 
 # AUTH_LEVEL:
@@ -39,7 +61,8 @@ DATABASES = {
 # to DEMO. This will allow people to play in demo mode, but not access
 # the full admin interface.
 
-AUTH_LEVEL = os.environ.get('OTREE_AUTH_LEVEL')
+#os.environ.get('OTREE_AUTH_LEVEL')
+AUTH_LEVEL = config.get('oTreeSettings', 'otree.auth.level')
 
 # ACCESS_CODE_FOR_DEFAULT_SESSION:
 # If you have a "default session" set,
@@ -50,8 +73,10 @@ AUTH_LEVEL = os.environ.get('OTREE_AUTH_LEVEL')
 ACCESS_CODE_FOR_DEFAULT_SESSION = 'my_access_code'
 
 # setting for integration with AWS Mturk
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+#os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_ACCESS_KEY_ID = config.get('MechanicalTurkSettings', 'mturk.access_key_id')
+#os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = config.get('MechanicalTurkSettings', 'mturk.secret_access_key')
 
 
 # e.g. EUR, CAD, GBP, CHF, CNY, JPY
