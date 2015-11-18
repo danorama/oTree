@@ -1,0 +1,14 @@
+[oTreeSettings]
+otree.production=1
+otree.auth.level=DEMO
+otree.hostname=
+
+[MechanicalTurkSettings]
+mturk.access_key_id=
+mturk.secret_access_key=
+
+[DatabaseSettings]
+database.host=
+database.user=
+database.password=
+database.name=
