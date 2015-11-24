@@ -126,24 +126,24 @@ DEMO_PAGE_INTRO_TEXT = """
 
 mturk_hit_settings = {
     'keywords': ['easy', 'bonus', 'choice', 'study'],
-    'title': 'Title for your experiment',
-    'description': 'Description for your experiment',
+    'title': 'A Brief Economic Experiment - CSN 10Nov15',
+    'description': 'This is a simple economic experiment that should only take a minute or two.',
     'frame_height': 500,
     'preview_template': 'global/MTurkPreview.html',
     'minutes_allotted_per_assignment': 60,
     'expiration_hours': 7*24, # 7 days
-    #'grant_qualification_id': 'YOUR_QUALIFICATION_ID_HERE',# to prevent retakes
+    #'grant_qualification_id': '3Q1RN8J3I90RAYEZ2YY7UEFAD26M8P',# to prevent retakes
     'qualification_requirements': [
         qualification.LocaleRequirement("EqualTo", "US"),
-        qualification.PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo", 50),
-        qualification.NumberHitsApprovedRequirement("GreaterThanOrEqualTo", 5),
-        #qualification.Requirement('YOUR_QUALIFICATION_ID_HERE', 'DoesNotExist')
+        #qualification.PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo", 95),
+        #qualification.NumberHitsApprovedRequirement("GreaterThanOrEqualTo", 500),
+        #qualification.Requirement('3Q1RN8J3I90RAYEZ2YY7UEFAD26M8P', 'DoesNotExist')
     ]
 }
 
 SESSION_CONFIG_DEFAULTS = {
     'real_world_currency_per_point': 0.01,
-    'participation_fee': 0.50,
+    'participation_fee': 0.25,
     'num_bots': 12,
     'doc': "",
     'group_by_arrival_time': False,
@@ -213,7 +213,7 @@ SESSION_CONFIGS = [
     },
     {
         'name': 'trust_def',
-        'display_name': "Trust Game DEF",
+        'display_name': "Trust Game D_E_F",
         'num_demo_participants': 2,
         'app_sequence': ['trust_session_instructions', 'trust_d', 'trust_e', 'trust_f'],
     },
@@ -370,6 +370,5 @@ SESSION_CONFIGS = [
         ],
     },
 ]
-
 
 otree.settings.augment_settings(globals())

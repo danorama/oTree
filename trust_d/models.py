@@ -39,7 +39,7 @@ class Constants(otree.constants.BaseConstants):
     #Initial amount allocated to each player
     amount_allocated = c(1.00)
     multiplication_factor = 3
-    bonus = c(0.00)
+    bonus = c(0.50)
 
     training_answer_x_correct = c(1.30)
     training_answer_y_correct = c(1.10)

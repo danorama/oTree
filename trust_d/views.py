@@ -19,16 +19,20 @@ class Introduction(Page):
     def vars_for_template(self):
         return {'amount_allocated': Constants.amount_allocated}
 
+    timeout_seconds = 90
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
+
 
 class Question1(Page):
     template_name = 'global/Question.html'
     form_model = models.Player
     form_fields = ['training_answer_x', 'training_answer_y']
     question = (
-        'Suppose that both participants start with $1.00, then Participant 1 sends $0.20 to Participant 2. '
-        'The experimenter triples this amount, so Participant 2 receives $0.60.'
-        'Having received the tripled amount, Participant 2 sends $0.50 to '
-        'Participant 1. In the end, how much would Participants 1 and 2 '
+        'Suppose that both participants start with $1.00, then participant A sent $0.20 to participant B. '
+        'Having received the tripled amount, participant B sent $0.50 to '
+        'participant A. In the end, how much would participant A and B '
         'have?'
     )
 
@@ -37,6 +41,11 @@ class Question1(Page):
 
     def vars_for_template(self):
         return {'num_q': 1, 'question': self.question}
+
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
 
 
 class Feedback(Page):
@@ -48,6 +57,11 @@ class Feedback(Page):
         return {
             'num_q': 1,
         }
+
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
 
 
 
@@ -64,6 +78,10 @@ class Send(Page):
     def is_displayed(self):
         return self.player.id_in_group == 1
 
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
 
 
 class SendBack(Page):
@@ -89,6 +107,11 @@ class SendBack(Page):
     def sent_back_amount_max(self):
         return self.group.sent_amount * Constants.multiplication_factor + Constants.amount_allocated
 
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
+
 
 class ResultsWaitPage(WaitPage):
 
@@ -108,6 +131,11 @@ class Results(Page):
                 'result': self.player.payoff - Constants.bonus,
                 'tripled_amount': self.group.sent_amount * Constants.multiplication_factor
                 }
+
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
 
 
 page_sequence =  [

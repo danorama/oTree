@@ -57,6 +57,7 @@ class Group(otree.models.BaseGroup):
     subsession = models.ForeignKey(Subsession)
     # </built-in>
 
+
     sent_amount = models.CurrencyField(
         min=0, max=Constants.amount_allocated,
         doc="""Amount sent by P1""",
@@ -82,6 +83,7 @@ class Player(otree.models.BasePlayer):
     # </built-in>
     training_answer_x = models.CurrencyField(verbose_name='Participant A would have')
     training_answer_y = models.CurrencyField(verbose_name='Participant B would have')
+    page_timed_out = False
 
     def role(self):
         return {1: 'A', 2: 'B'}[self.id_in_group]

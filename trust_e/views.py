@@ -13,6 +13,11 @@ class Introduction(Page):
 
     template_name = 'global/Introduction.html'
 
+    timeout_seconds = 90
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
+
 
 class Question1(Page):
     template_name = 'global/Question.html'
@@ -27,6 +32,11 @@ class Question1(Page):
     def vars_for_template(self):
         return {'num_q': 1, 'question': self.question}
 
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
+
 
 class Feedback1(Page):
     template_name = 'trust_e/Feedback.html'
@@ -40,6 +50,11 @@ class Feedback1(Page):
                 'participant 1': [p.training_participant1_payoff, 0.80],
                 'participant 2': [p.training_participant2_payoff, 1.60]}}
 
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
+
 
 class Offer(Page):
 
@@ -48,6 +63,11 @@ class Offer(Page):
 
     def is_displayed(self):
         return self.player.id_in_group == 1
+
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
 
 
 class ResultsWaitPage(WaitPage):
@@ -69,6 +89,11 @@ class Results(Page):
 
     def vars_for_template(self):
         return {'offer': self.offer}
+
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
 
 
 page_sequence = [Introduction,

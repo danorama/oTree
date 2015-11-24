@@ -19,6 +19,11 @@ class Introduction(Page):
     def vars_for_template(self):
         return {'amount_allocated': Constants.amount_allocated}
 
+    timeout_seconds = 90
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
+
 
 class Question1(Page):
     template_name = 'global/Question.html'
@@ -38,6 +43,11 @@ class Question1(Page):
     def vars_for_template(self):
         return {'num_q': 1, 'question': self.question}
 
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
+
 
 class Feedback(Page):
 
@@ -48,6 +58,11 @@ class Feedback(Page):
         return {
             'num_q': 1,
         }
+
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
 
 
 
@@ -64,7 +79,10 @@ class Send(Page):
     def is_displayed(self):
         return self.player.id_in_group == 1
 
-
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
 
 class SendBack(Page):
 
@@ -89,13 +107,16 @@ class SendBack(Page):
     def sent_back_amount_max(self):
         return self.group.sent_amount * Constants.multiplication_factor + Constants.amount_allocated
 
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
 
 class ResultsWaitPage(WaitPage):
 
 
     def after_all_players_arrive(self):
         self.group.set_payoffs()
-
 
 class Results(Page):
 
@@ -108,6 +129,10 @@ class Results(Page):
                 'result': self.player.payoff - Constants.bonus,
                 'tripled_amount': self.group.sent_amount * Constants.multiplication_factor
                 }
+    timeout_seconds = 75
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.page_timed_out = True
 
 
 page_sequence =  [
