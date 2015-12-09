@@ -83,6 +83,9 @@ AWS_SECRET_ACCESS_KEY = config.get('MechanicalTurkSettings', 'mturk.secret_acces
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = False
 
+# The following line was added to prevent extra players from being created.
+MTURK_NUM_PARTICIPANTS_MULT = 1
+
 
 # e.g. en-gb, de-de, it-it, fr-fr.
 # see: https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -126,7 +129,7 @@ DEMO_PAGE_INTRO_TEXT = """
 
 mturk_hit_settings = {
     'keywords': ['easy', 'bonus', 'choice', 'study'],
-    'title': 'A Brief Economic Experiment - CSN 10Nov15',
+    'title': 'A Brief Economic Experiment - CSN ',
     'description': 'This is a simple economic experiment that should only take a minute or two.',
     'frame_height': 500,
     'preview_template': 'global/MTurkPreview.html',
@@ -137,7 +140,7 @@ mturk_hit_settings = {
         qualification.LocaleRequirement("EqualTo", "US"),
         #qualification.PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo", 95),
         #qualification.NumberHitsApprovedRequirement("GreaterThanOrEqualTo", 500),
-        #qualification.Requirement('3Q1RN8J3I90RAYEZ2YY7UEFAD26M8P', 'DoesNotExist')
+        qualification.Requirement('3Q1RN8J3I90RAYEZ2YY7UEFAD26M8P', 'DoesNotExist')
     ]
 }
 
@@ -146,7 +149,7 @@ SESSION_CONFIG_DEFAULTS = {
     'participation_fee': 0.25,
     'num_bots': 12,
     'doc': "",
-    'group_by_arrival_time': False,
+    'group_by_arrival_time': True,
     'mturk_hit_settings': mturk_hit_settings,
 }
 
@@ -370,5 +373,6 @@ SESSION_CONFIGS = [
         ],
     },
 ]
+
 
 otree.settings.augment_settings(globals())
